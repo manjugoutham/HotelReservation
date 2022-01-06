@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HotelReservation {
+public class HotelMain {
 
 	Scanner scan = new Scanner(System.in);
 	List<Hotel> hotel = new ArrayList<>();
@@ -21,18 +21,15 @@ public class HotelReservation {
 		String rating = scan.next();
 		Hotel h1 = new Hotel(name, rating);
 		hotel.add(h1);
-		System.out.println(hotel);
+		System.out.println(hotel.toString());
 		}
 	}
 
 	public static void main(String args[]) {
 		
-		HotelReservation obj = new HotelReservation();
+		HotelMain obj = new HotelMain();
 		obj.addhotel();
 
 	}
 
 }
-
-	
-	
