@@ -188,10 +188,35 @@ public class HotelMain {
 		rates.forEach(System.out::println);
 		return true;
 	}
+	
+	public boolean addspecialrates() {
+
+		System.out.println("Enter the how many hotel you want to add :");
+		int val = scan.nextInt();
+		for (int i = 0; i < val; i++) {
+			System.out.println("Enter the hotel name :");
+			String name = scan.next();
+			System.out.println("Enter the regularweekday rate :");
+			int regweekday = scan.nextInt();
+			System.out.println("Enter the regularweekend rate :");
+			int regweekend = scan.nextInt();
+			System.out.println("Enter the rewardweekday rate :");
+			int rewardweekday = scan.nextInt();
+			System.out.println("Enter the rewardweekend rate :");
+			int rewardweekend = scan.nextInt();
+			System.out.println("Enter the hotel ratings :");
+			int ratings = scan.nextInt();
+			Hotel h2 = new Hotel(name,ratings,regweekday,regweekend,rewardweekday,rewardweekend);
+			hotel.add(h2);
+			System.out.println(hotel.toString());
+			
+		}
+		return true;
+	}
 	public static void main(String args[]) {
 
 		HotelMain obj = new HotelMain();
-		obj.bestratedhotel("10Jun2021", "12Jun2021");
+		obj.addspecialrates();
 	}
 
 }

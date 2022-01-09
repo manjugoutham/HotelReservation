@@ -9,9 +9,9 @@ import com.java.hotelreservation.HotelMain;
 public class HotelMainTest {
 	
 	@Test
-	public void bestratedhotelTest() {
+	public void addspecialratesTest() {
 		HotelMain obj = new HotelMain();
-			boolean result = obj.bestratedhotel("10Jun2021", "12Jun2021");
+			boolean result = obj.addspecialrates();
 			Assert.assertEquals(true, result);
 	}	
 	
