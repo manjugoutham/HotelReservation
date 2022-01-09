@@ -7,13 +7,13 @@ import com.java.hotelreservation.Customer;
 import com.java.hotelreservation.HotelMain;
 
 public class HotelMainTest {
-
+	
 	@Test
-	public void addweekdayweekendTest() {
+	public void cheapesthotelweekdayweekendTest() {
 		HotelMain obj = new HotelMain();
 		obj.addweekdayweekend();
-		boolean result = obj.addweekdayweekend();
-		Assert.assertEquals(true, result);
+			boolean result = obj.cheapesthotelweekdayweekend("10Jun2021", "12Jun2021");
+			Assert.assertEquals(true, result);
 	}
-
+	
 }
