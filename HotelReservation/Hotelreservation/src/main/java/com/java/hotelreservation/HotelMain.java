@@ -22,7 +22,7 @@ public class HotelMain {
 		for (int i = 0; i < val; i++) {
 			System.out.println("Enter the hotel name :");
 			String name = scan.next();
-			System.out.println("Enter the hotel rate :");
+			System.out.println("Enter the hotel rating :");
 			int rate = scan.nextInt();
 			Hotel h1 = new Hotel(name, rate);
 			hotel.add(h1);
@@ -30,6 +30,7 @@ public class HotelMain {
 		}
 		return true;
 	}
+	//uc2
 	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("ddMMMyyyy");
 
 	public static boolean cheapestHotel(String startDate, String endDate) {
@@ -41,8 +42,7 @@ public class HotelMain {
 		List<Hotel> rates = hotel.stream().map(hotelData -> {
 			Hotel res = new Hotel();
 			res.setName(hotelData.getName());
-			res.setRate(hotelData.getRate());
-			res.setTotalrate(hotelData.getTotalrate());
+			res.setTotalrate(hotelData.getRatings());
 			return res;
 		}).sorted(Comparator.comparing(Hotel::getTotalrate)).collect(Collectors.toList());
 
@@ -51,11 +51,29 @@ public class HotelMain {
 		return true;
 
 	}
+	//uc3
+	public static boolean addweekdayweekend() {
+
+		System.out.println("Enter the how many hotel you want to add :");
+		int val = scan.nextInt();
+		for (int i = 0; i < val; i++) {
+			System.out.println("Enter the hotel name :");
+			String name = scan.next();
+			System.out.println("Enter the weekday rate :");
+			int weekday = scan.nextInt();
+			System.out.println("Enter the weekend rate :");
+			int weekend = scan.nextInt();
+			Hotel h1 = new Hotel(name, weekday, weekend);
+			hotel.add(h1);
+			System.out.println(hotel.toString());
+		}
+		return true;
+	}
 	
 	public static void main(String args[]) {
 
 		HotelMain obj = new HotelMain();
-		HotelMain.cheapestHotel("10Jun2021", "12Jun2021");
+		obj.addweekdayweekend();
 	}
 
 }
