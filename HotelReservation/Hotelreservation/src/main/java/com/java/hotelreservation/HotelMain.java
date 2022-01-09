@@ -161,11 +161,37 @@ public class HotelMain {
 		return true;
 	}
 	
-	
+	private static final DateTimeFormatter DATE_FORMAT3 = DateTimeFormatter.ofPattern("ddMMMyyyy");
+	public static boolean bestratedhotel(String startDate, String endDate) {
+		addweekdayweekend();
+		LocalDate startDate2 = LocalDate.parse(startDate, DATE_FORMAT3);
+		LocalDate endDate2 = LocalDate.parse(endDate, DATE_FORMAT3);
+		int days = (int) ChronoUnit.DAYS.between(startDate2, endDate2);
+
+		List<Hotel> rates = hotel.stream().map(hotelData -> {
+			Hotel res = new Hotel();
+
+			if (startDate2.getDayOfWeek().equals(DayOfWeek.SATURDAY)
+					|| endDate2.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			} else {
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			}
+			res.setWeekdayRate(hotelData.getWeekdayRate());
+			res.setWeekendRate(hotelData.getWeekendRate());
+			res.setRatings(hotelData.getRatings());
+			res.setName(hotelData.getName());
+			return res;
+		}).sorted(Comparator.comparing(Hotel::getRatings).reversed()).collect(Collectors.toList());
+
+		System.out.printf("The total days are : %d\n", days);
+		rates.forEach(System.out::println);
+		return true;
+	}
 	public static void main(String args[]) {
 
 		HotelMain obj = new HotelMain();
-		obj.cheapesthoteltobest("10Jun2021", "12Jun2021");
+		obj.bestratedhotel("10Jun2021", "12Jun2021");
 	}
 
 }
