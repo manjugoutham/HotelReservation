@@ -1,11 +1,12 @@
 package com.java.hotelreservation;
 
-import java.time.LocalDate;
-
 public class Hotel {
 
 	private int rate;
 	private String name;
+	private String hotelname;
+	private int totalrate;
+	private int ratings;
 
 	public Hotel() {
 
@@ -16,6 +17,22 @@ public class Hotel {
 		this.rate = rate;
 	}
 
+	public String getHotelname() {
+		return hotelname;
+	}
+
+	public void setHotelname(String hotelname) {
+		this.hotelname = hotelname;
+	}
+
+	public int getTotalrate() {
+		return totalrate = rate * 2;
+	}
+
+	public void setTotalrate(int totalrate) {
+		this.totalrate = totalrate;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -24,9 +41,25 @@ public class Hotel {
 		this.name = name;
 	}
 
+	public int getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(int ratings) {
+		this.ratings = ratings;
+	}
+
 	@Override
 	public String toString() {
-		return "Hotel [name=" + name + ",rate=" + rate + "]";
+		return "Hotel [name=" + name + ",rate=" + rate + " ,totalrate= " + totalrate + "]";
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 
 }

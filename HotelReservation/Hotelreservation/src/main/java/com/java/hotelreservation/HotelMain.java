@@ -15,7 +15,6 @@ public class HotelMain {
 
 	static Scanner scan = new Scanner(System.in);
 	static List<Hotel> hotel = new ArrayList<>();
-	//uc1
 	public static boolean addhotel() {
 
 		System.out.println("Enter the how many hotel you want to add :");
@@ -31,12 +30,32 @@ public class HotelMain {
 		}
 		return true;
 	}
-	
+	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("ddMMMyyyy");
+
+	public static boolean cheapestHotel(String startDate, String endDate) {
+		addhotel();
+		LocalDate startDate1 = LocalDate.parse(startDate, DATE_FORMAT);
+		LocalDate endDate1 = LocalDate.parse(endDate, DATE_FORMAT);
+		long days = ChronoUnit.DAYS.between(startDate1, endDate1);
+
+		List<Hotel> rates = hotel.stream().map(hotelData -> {
+			Hotel res = new Hotel();
+			res.setName(hotelData.getName());
+			res.setRate(hotelData.getRate());
+			res.setTotalrate(hotelData.getTotalrate());
+			return res;
+		}).sorted(Comparator.comparing(Hotel::getTotalrate)).collect(Collectors.toList());
+
+		System.out.printf("The total days are : %d\n", days);
+		rates.forEach(System.out::println);
+		return true;
+
+	}
 	
 	public static void main(String args[]) {
 
 		HotelMain obj = new HotelMain();
-		obj.addhotel();
+		HotelMain.cheapestHotel("10Jun2021", "12Jun2021");
 	}
 
 }
