@@ -15,6 +15,7 @@ public class HotelMain {
 
 	static Scanner scan = new Scanner(System.in);
 	static List<Hotel> hotel = new ArrayList<>();
+	
 	public static boolean addhotel() {
 
 		System.out.println("Enter the how many hotel you want to add :");
@@ -51,7 +52,7 @@ public class HotelMain {
 		return true;
 
 	}
-	
+	//uc3
 	public static boolean addweekdayweekend() {
 
 		System.out.println("Enter the how many hotel you want to add :");
@@ -63,6 +64,7 @@ public class HotelMain {
 			int weekday = scan.nextInt();
 			System.out.println("Enter the weekend rate :");
 			int weekend = scan.nextInt();
+			//uc5
 			System.out.println("Enter the hotel ratings :");
 			int ratings = scan.nextInt();
 			Hotel h1 = new Hotel(name, weekday, weekend, ratings);
@@ -71,13 +73,43 @@ public class HotelMain {
 		}
 		return true;
 	}
-	
+	//uc4
 	private static final DateTimeFormatter DATE_FORMAT1 = DateTimeFormatter.ofPattern("ddMMMyyyy");
 
-	public static boolean addratingseachhotel(String startDate, String endDate) {
+	public static boolean cheapesthotelweekdayweekend(String startDate, String endDate) {
 		addweekdayweekend();
 		LocalDate startDate2 = LocalDate.parse(startDate, DATE_FORMAT1);
 		LocalDate endDate2 = LocalDate.parse(endDate, DATE_FORMAT1);
+		int days = (int) ChronoUnit.DAYS.between(startDate2, endDate2);
+
+		List<Hotel> rates = hotel.stream().map(hotelData -> {
+			Hotel res = new Hotel();
+
+			if (startDate2.getDayOfWeek().equals(DayOfWeek.SATURDAY)
+					|| endDate2.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+//				res.setTotalrate(hotelData.getWeekendRate() * days);
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			} else {
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			}
+			res.setWeekdayRate(hotelData.getWeekdayRate());
+			res.setWeekendRate(hotelData.getWeekendRate());
+			
+			res.setName(hotelData.getName());
+			return res;
+		}).sorted(Comparator.comparing(Hotel::getTotalrate)).collect(Collectors.toList());
+
+		System.out.printf("The total days are : %d\n", days);
+		rates.forEach(System.out::println);
+		return true;
+	}
+	//uc5
+	private static final DateTimeFormatter DATE_FORMAT5 = DateTimeFormatter.ofPattern("ddMMMyyyy");
+
+	public static boolean addratingseachhotel(String startDate, String endDate) {
+		addweekdayweekend();
+		LocalDate startDate2 = LocalDate.parse(startDate, DATE_FORMAT5);
+		LocalDate endDate2 = LocalDate.parse(endDate, DATE_FORMAT5);
 		int days = (int) ChronoUnit.DAYS.between(startDate2, endDate2);
 
 		List<Hotel> rates = hotel.stream().map(hotelData -> {
@@ -101,10 +133,38 @@ public class HotelMain {
 		return true;
 	}
 	
+	private static final DateTimeFormatter DATE_FORMAT2 = DateTimeFormatter.ofPattern("ddMMMyyyy");
+	public static boolean cheapesthoteltobest(String startDate, String endDate) {
+		addweekdayweekend();
+		LocalDate startDate2 = LocalDate.parse(startDate, DATE_FORMAT2);
+		LocalDate endDate2 = LocalDate.parse(endDate, DATE_FORMAT2);
+		int days = (int) ChronoUnit.DAYS.between(startDate2, endDate2);
+
+		List<Hotel> rates = hotel.stream().map(hotelData -> {
+			Hotel res = new Hotel();
+
+			if (startDate2.getDayOfWeek().equals(DayOfWeek.SATURDAY)
+					|| endDate2.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			} else {
+				res.setTotalrate(hotelData.getWeekdayRate() + hotelData.getWeekendRate() * days);
+			}
+			res.setWeekdayRate(hotelData.getWeekdayRate());
+			res.setWeekendRate(hotelData.getWeekendRate());
+			res.setRatings(hotelData.getRatings());
+			res.setName(hotelData.getName());
+			return res;
+		}).sorted(Comparator.comparing(Hotel::getRatings).thenComparing(Hotel::getTotalrate)).collect(Collectors.toList());
+
+		System.out.printf("The total days are : %d\n", days);
+		rates.forEach(System.out::println);
+		return true;
+	}
+	
 	public static void main(String args[]) {
 
 		HotelMain obj = new HotelMain();
-		obj.addratingseachhotel("10Jun2021", "12Jun2021");
+		obj.cheapesthoteltobest("10Jun2021", "12Jun2021");
 	}
 
 }
