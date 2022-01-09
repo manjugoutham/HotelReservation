@@ -1,4 +1,4 @@
-package com.java.regex.Hotelreservation;
+package com.java.hotelreservation;
 
 /**
  * Hello world!
