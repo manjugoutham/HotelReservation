@@ -9,11 +9,10 @@ import com.java.hotelreservation.HotelMain;
 public class HotelMainTest {
 	
 	@Test
-	public void addratingseachhotelTest() {
+	public void cheapesthoteltobestTest() {
 		HotelMain obj = new HotelMain();
-		obj.addweekdayweekend();
-			boolean result = obj.addratingseachhotel("10Jun2021", "12Jun2021");
+			boolean result = obj.cheapesthoteltobest("10Jun2021", "12Jun2021");
 			Assert.assertEquals(true, result);
-	}
+	}	
 	
 }
