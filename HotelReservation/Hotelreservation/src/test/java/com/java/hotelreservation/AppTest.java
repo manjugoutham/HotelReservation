@@ -1,4 +1,4 @@
-package com.java.regex.Hotelreservation;
+package com.java.hotelreservation;
 
 import static org.junit.Assert.assertTrue;
 
