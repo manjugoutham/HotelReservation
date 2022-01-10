@@ -9,11 +9,18 @@ import com.java.hotelreservation.HotelMain;
 public class HotelMainTest {
 
 	@Test
-	public void findchepestbestrewardcustomersTest() {
+	public void findchepestbestrewardcustomersexceptionTest() {
 		HotelMain obj = new HotelMain();
 		obj.addspecialrates();
-		boolean result = obj.findchepestbestrewardcustomers(Customer.REWARD, "10Jun2021", "12Jun2021");
-		Assert.assertEquals(true, result);
+		boolean result;
+		try {
+			result = obj.findchepestbestrewardcustomersexception(null, "10Jun2021", "12Jun2021");
+			Assert.assertEquals(true, result);
+		} catch (InvalidUserInputException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Invalid input");
+			// e.printStackTrace();
+		}
 	}
 
 }
