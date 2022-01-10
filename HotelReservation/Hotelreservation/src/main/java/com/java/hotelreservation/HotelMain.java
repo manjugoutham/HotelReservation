@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 public class HotelMain {
 
 	static Scanner scan = new Scanner(System.in);
@@ -214,11 +215,46 @@ public class HotelMain {
 		return true;
 	}
 	
-	
-	public static void main(String args[]) {
+		private static final DateTimeFormatter DATE_FORMAT4 = DateTimeFormatter.ofPattern("ddMMMyyyy");
+		public static boolean findchepestbestrewardcustomers(Customer customertype,String startDate, String endDate) {
+			
+			LocalDate startDate2 = LocalDate.parse(startDate, DATE_FORMAT4);
+			LocalDate endDate2 = LocalDate.parse(endDate, DATE_FORMAT4);
+			int days = (int) ChronoUnit.DAYS.between(startDate2, endDate2);
 
-		HotelMain obj = new HotelMain();
-		obj.addspecialrates();
-	}
+			List<Hotel> rates = hotel.stream().map(hotelData -> {
+				Hotel res = new Hotel();
 
+				if(Customer.REWARD.equals(customertype))
+				{
+					if (startDate2.getDayOfWeek().equals(DayOfWeek.SATURDAY)
+							|| endDate2.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+						res.setTotalrate(hotelData.getRewardweekendrate() *days);
+					} else {
+						res.setTotalrate(hotelData.getRewardweekdayrate() * days);
+					}
+					
+				}
+				res.setRatings(hotelData.getRatings());
+				res.setRegularweekdayrate(hotelData.getRegularweekdayrate());
+				res.setRegularweekendrate(hotelData.getRegularweekendrate());
+				res.setRewardweekdayrate(hotelData.getRewardweekdayrate());
+				res.setRewardweekendrate(hotelData.getRewardweekendrate());
+				
+				res.setName(hotelData.getName());
+				return res;
+			}).sorted(Comparator.comparing(Hotel::getTotalrate)).collect(Collectors.toList());
+
+			System.out.printf("The total days are : %d\n", days);
+			rates.forEach(System.out::println);
+			return true;
+			
+		}
+		
+		public static void main(String args[]) {
+
+			HotelMain obj = new HotelMain();
+			obj.addspecialrates();
+			obj.findchepestbestrewardcustomers(Customer.REWARD, "10Jun2021", "12Jun2021");
+		}
 }
